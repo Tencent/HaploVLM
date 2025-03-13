@@ -1,0 +1,97 @@
+![Image](assets/logo.jpeg)
+
+<div align="center">
+
+# HaploVL - A Single-Transformer Baseline for Multi-Modal Understanding
+
+[![arXiv paper](https://img.shields.io/badge/arXiv_paper-red)](https://haplo-vl.github.io/)&nbsp;
+[![Project page](https://img.shields.io/badge/Project_page-green)](https://haplo-vl.github.io/)&nbsp;
+[![Models](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue)](https://huggingface.co/collections/stevengrove/haplo-vl-678881793be07ac5fd67ad68)&nbsp;
+![Tencent ARC Lab](https://img.shields.io/badge/Developed_by-Tencent_ARC_Lab-blue)&nbsp;
+
+</div>
+
+HaploVL is a multimodal understanding foundation model that delivers comprehensive cross-modal understanding capabilities for text, images, and video inputs through a single transformer architecture.
+
+## Highlights
+This repository contains the PyTorch implementation, model weights, and training code for **Haplo**.
+
+![Image](assets/framework.png)
+
+🌟 **Unified Architecture**: Single transformer model supporting early fusion of multi-modal inputs and auto-regressive response generation  
+🌟 **Efficient Training**: Optimized training recipe leveraging pre-trained knowledge with reduced resource consumption  
+🌟 **Scalable Design**: Flexible framework supporting both Ascend NPU and GPU environments  
+🌟 **Extended Capabilities**: Native support for multiple image understanding and video processing
+
+## Model Weights
+
+| Method               | HF    | SEED | POPE | AI2D  | RWQA | MMMU | MMB  | MMS  | VQAv2 | GQA  | SQA  | MMVP |
+|----------------------|-------------|------|------|-------|------|------|------|------|-------|------|------|------|
+| HaploVL-7B-Pro   | [weights](https://huggingface.co/stevengrove/Haplo-7B)  | 75.0 | 88.7 | 80.6 | 64.3 | 48.7 | 80.5 | 61.4 | 81.1 | 64.6 | 96.9| 50.1 |
+
+
+## Getting Started
+
+### Installation
+
+```bash
+pip install git+https://github.com/Tencent/HaploVLM.git
+```
+
+### Quick Start
+Basic usage example:
+```python
+from haplo import HaploProcessor, HaploForConditionalGeneration
+
+processor = HaploProcessor.from_pretrained('stevengrove/Haplo-7B-Pro')
+model = HaploForConditionalGeneration.from_pretrained(
+    'stevengrove/Haplo-7B-Pro',
+    torch_dtype=torch.bfloat16
+).to('cuda')
+
+conversation = [
+    {'role': 'user', 'content': [
+        {'type': 'text', 'text': 'Describe this image.'},
+        {'type': 'image', 'path': 'assets/example-image.png'}
+    ]}
+]
+
+inputs = processor.apply_chat_template(
+    conversation,
+    add_generation_prompt=True,
+    return_tensors='pt'
+).to('cuda')
+
+outputs = model.generate(inputs)
+print(processor.decode(outputs[0]))
+```
+
+### Gradio Demo
+Launch an interactive demo:
+```bash
+python demo/demo.py \
+    -m "stevengrove/Haplo-7B-Pro" \
+    --server-port 8080 \
+    --device cuda \
+    --dtype bfloat16
+```
+
+**Multi-Modal Capabilities**
+
+| Category                      | Example                                  |
+|-------------------------------|------------------------------------------|
+| Single Image Understanding    | ![Demo1](assets/demo_1.png)              |
+| Multi-Image Understanding         | ![Demo3](assets/demo_2.png)              |
+| Video Understanding           | ![Demo2](assets/demo_3.png)              |
+
+
+## Acknowledgement
+
+```bibtex
+@article{yang2024haplo,
+  title={HaploVL: A Single-Transformer Baseline for Multi-Modal Understanding},
+  author={Yang, Rui and Song, Lin and Xiao, Yicheng and Huang, Runhui and Ge, Yixiao and Shan, Ying and Zhao, Hengshuang},
+  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  year={2025}
+}
+```
