@@ -6,7 +6,7 @@
 
 [![arXiv paper](https://img.shields.io/badge/arXiv_paper-red)](https://haplo-vl.github.io/)&nbsp;
 [![Project page](https://img.shields.io/badge/Project_page-green)](https://haplo-vl.github.io/)&nbsp;
-[![Models](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue)](https://huggingface.co/collections/stevengrove/haplo-vl-678881793be07ac5fd67ad68)&nbsp;
+[![Models](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue)](https://huggingface.co/collections/stevengrove/haplo-67d2582ac79d96983fa99697)&nbsp;
 ![Tencent ARC Lab](https://img.shields.io/badge/Developed_by-Tencent_ARC_Lab-blue)&nbsp;
 
 </div>
@@ -23,19 +23,18 @@ This repository contains the PyTorch implementation, model weights, and training
 🌟 **Scalable Design**: Flexible framework supporting both Ascend NPU and GPU environments  
 🌟 **Extended Capabilities**: Native support for multiple image understanding and video processing
 
-## Model Weights
-
-| Method               | HF    | SEED | POPE | AI2D  | RWQA | MMMU | MMB  | MMS  | VQAv2 | GQA  | SQA  | MMVP |
-|----------------------|-------------|------|------|-------|------|------|------|------|-------|------|------|------|
-| HaploVL-7B-Pro   | [weights](https://huggingface.co/stevengrove/Haplo-7B)  | 75.0 | 88.7 | 80.6 | 64.3 | 48.7 | 80.5 | 61.4 | 81.1 | 64.6 | 96.9| 50.1 |
-
-
 ## Getting Started
 
 ### Installation
 
 ```bash
+# Option1:
 pip install git+https://github.com/Tencent/HaploVLM.git
+
+# Option2:
+git clone https://github.com/Tencent/HaploVLM.git
+cd HaploVLM
+pip install -e . -v
 ```
 
 ### Quick Start
@@ -70,7 +69,7 @@ print(processor.decode(outputs[0]))
 Launch an interactive demo:
 ```bash
 python demo/demo.py \
-    -m "stevengrove/Haplo-7B-Pro" \
+    -m "stevengrove/Haplo-7B-Pro-Video" \
     --server-port 8080 \
     --device cuda \
     --dtype bfloat16
