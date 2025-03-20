@@ -4,7 +4,7 @@
 
 # HaploVL - A Single-Transformer Baseline for Multi-Modal Understanding
 
-[![arXiv paper](https://img.shields.io/badge/arXiv_paper-red)](https://github.com/Tencent/HaploVLM/blob/main/assets/HaploVL.pdf)&nbsp;
+[![arXiv paper](https://img.shields.io/badge/arXiv_paper-red)](http://arxiv.org/abs/2503.14694)&nbsp;
 [![Project page](https://img.shields.io/badge/Project_page-green)](https://haplo-vl.github.io/)&nbsp;
 [![Models](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue)](https://huggingface.co/collections/stevengrove/haplo-67d2582ac79d96983fa99697)&nbsp;
 ![Tencent ARC Lab](https://img.shields.io/badge/Developed_by-Tencent_ARC_Lab-blue)&nbsp;
@@ -87,10 +87,10 @@ python demo/demo.py \
 ## Acknowledgement
 
 ```bibtex
-@article{yang2024haplo,
-  title={HaploVL: A Single-Transformer Baseline for Multi-Modal Understanding},
-  author={Yang, Rui and Song, Lin and Xiao, Yicheng and Huang, Runhui and Ge, Yixiao and Shan, Ying and Zhao, Hengshuang},
-  journal={arXiv preprint arXiv:xxxx.xxxxx},
-  year={2025}
+@article{HaploVL,
+    title={HaploVL: A Single-Transformer Baseline for Multi-Modal Understanding},
+    author={Yang, Rui and Song, Lin and Xiao, Yicheng and Huang, Runhui and Ge, Yixiao and Shan, Ying and Zhao, Hengshuang},
+    journal={arXiv preprint arXiv:2503.14694},
+    year={2025}
 }
 ```
