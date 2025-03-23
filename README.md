@@ -55,14 +55,28 @@ conversation = [
     ]}
 ]
 
-inputs = processor.apply_chat_template(
+
+text_prompt = processor.apply_chat_template(
     conversation,
     add_generation_prompt=True,
-    return_tensors='pt'
-).to('cuda')
+    tokenize=False,
+    return_dict=False,
+)
 
-outputs = model.generate(inputs)
-print(processor.decode(outputs[0]))
+from PIL import Image
+image = Image.open('assets/example-image.png')
+
+inputs = processor(
+    [image],
+    [text_prompt],
+    return_tensors='pt'
+).to('cuda', torch.bfloat16)
+
+outputs = model.generate(**inputs, max_new_tokens=128)
+
+input_ids = inputs.input_ids
+print(processor.decode(outputs[0][len(input_ids[0]):], skip_special_tokens=False))
+
 ```
 
 ### Gradio Demo
