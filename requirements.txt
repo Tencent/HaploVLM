@@ -1,4 +1,4 @@
 torch
 transformers>=4.49.0 
 gradio>=4.44.0
-pyav
+av
