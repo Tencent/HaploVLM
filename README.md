@@ -26,7 +26,7 @@ pip install -e . -v (Optional)
 ```
 
 ### Quick Start
-Basic usage example:
+Basic usage example in multimodal understanding:
 ```python
 from haploomni import HaploOmniProcessor, HaploOmniForConditionalGeneration
 from transformers import AutoTokenizer, AutoConfig
@@ -66,6 +66,13 @@ output_text = processor.batch_decode(
 )
 print(output_text)
 ```
+
+## 🎤🎤🎤 Todo
+
+- [ &#10004; ] Release the paper.
+- [  &#10004; ] Release the checkpoints.
+- [  &#10004; ] Release the inference demo for understanding task.
+- [  &nbsp; &nbsp; ] Release the inference demo for generation task.
 
 
 ## Acknowledgement
