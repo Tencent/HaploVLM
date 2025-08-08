@@ -26,7 +26,7 @@ pip install -e . -v (Optional)
 ```
 
 ### Quick Start
-Basic usage example in multimodal understanding:
+Basic usage example for multimodal understanding:
 ```python
 from haploomni import HaploOmniProcessor, HaploOmniForConditionalGeneration
 from transformers import AutoTokenizer, AutoConfig
