@@ -13,6 +13,11 @@
 
 HaploVL is a multimodal understanding foundation model that delivers comprehensive cross-modal understanding capabilities for text, images, and video inputs through a single transformer architecture.
 
+## Project Updates
+
+- 🔥 **News**: ```2025/08/08```: We release HaploOmni in the branch (HaploOmni).
+- 🔥 **News**: ```2025/05/01```: HaploVL is accepted by ICML2025.
+
 ## Highlights
 This repository contains the PyTorch implementation, model weights, and training code for **Haplo**.
 
@@ -92,5 +97,11 @@ python demo/demo.py \
     author={Yang, Rui and Song, Lin and Xiao, Yicheng and Huang, Runhui and Ge, Yixiao and Shan, Ying and Zhao, Hengshuang},
     journal={arXiv preprint arXiv:2503.14694},
     year={2025}
+}
+@article{xiao2025haploomni,
+  title={Haploomni: Unified single transformer for multimodal video understanding and generation},
+  author={Xiao, Yicheng and Song, Lin and Yang, Rui and Cheng, Cheng and Xu, Zunnan and Zhang, Zhaoyang and Ge, Yixiao and Li, Xiu and Shan, Ying},
+  journal={arXiv preprint arXiv:2506.02975},
+  year={2025}
 }
 ```
