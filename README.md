@@ -18,51 +18,63 @@ With the advancement of language models, unified multimodal understanding and ge
 ### Installation
 
 ```bash
-# Option1:
-pip install git+https://github.com/Tencent/HaploVLM.git
-
-# Option2:
 git clone https://github.com/Tencent/USTVLM.git
-cd USTVLM
-pip install -e . -v
+cd HaploVLM
+git checkout HaploOmni
+
+pip install -e . -v (Optional)
 ```
 
 ### Quick Start
 Basic usage example:
 ```python
-from ust import USTProcessor, USTForConditionalGeneration
+from haploomni import HaploOmniProcessor, HaploOmniForConditionalGeneration
+from transformers import AutoTokenizer, AutoConfig
+import torch
 
-processor = USTProcessor.from_pretrained('stevengrove/UST-7B-Pro')
-model = USTForConditionalGeneration.from_pretrained(
-    'stevengrove/UST-7B-Pro',
+model_path = 'HaploOmni-Qwen2.5-7B'
+
+processor = HaploOmniProcessor.from_pretrained(model_path)
+tokenizer = processor.tokenizer
+model = HaploOmniForConditionalGeneration.from_pretrained(
+    model_path,
     torch_dtype=torch.bfloat16
-).to('cuda')
+).to('npu')
 
 conversation = [
     {'role': 'user', 'content': [
-        {'type': 'text', 'text': 'Describe this image.'},
-        {'type': 'image', 'path': 'assets/example-image.png'}
+        # {'type': 'text', 'text': 'Who are you.'},
+        {'type': 'text', 'text': 'How many people are there.'},
+        {'type': 'image', 'path': 'test.jpg'}
     ]}
 ]
 
 inputs = processor.apply_chat_template(
     conversation,
     add_generation_prompt=True,
-    return_tensors='pt'
-).to('cuda')
+    tokenize=True,
+    return_tensors='pt',
+    return_dict=True
+).to('npu').to(torch.bfloat16)
 
-outputs = model.generate(inputs)
-print(processor.decode(outputs[0]))
+outputs = model.generate(**inputs)
+generated_ids_trimmed = [
+    out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, outputs)
+]
+output_text = processor.batch_decode(
+    generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+)
+print(output_text)
 ```
 
 
 ## Acknowledgement
 
 ```bibtex
-@article{USTVL,
-    title={USTVL: A Single-Transformer Baseline for Multi-Modal Understanding},
-    author={Yang, Rui and Song, Lin and Xiao, Yicheng and Huang, Runhui and Ge, Yixiao and Shan, Ying and Zhao, Hengshuang},
-    journal={arXiv preprint arXiv:2503.14694},
-    year={2025}
+@article{xiao2025haploomni,
+  title={Haploomni: Unified single transformer for multimodal video understanding and generation},
+  author={Xiao, Yicheng and Song, Lin and Yang, Rui and Cheng, Cheng and Xu, Zunnan and Zhang, Zhaoyang and Ge, Yixiao and Li, Xiu and Shan, Ying},
+  journal={arXiv preprint arXiv:2506.02975},
+  year={2025}
 }
 ```
