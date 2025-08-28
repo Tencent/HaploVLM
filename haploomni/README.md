@@ -67,6 +67,47 @@ output_text = processor.batch_decode(
 print(output_text)
 ```
 
+Basic usage example for video generation:
+```python
+DTYPE = torch.bfloat16
+device = torch.device('cuda')
+
+model_path = 'EasonXiao-888/HaploOmni'
+processor = HaploOmniProcessor.from_pretrained(model_path)
+tokenizer = processor.tokenizer
+model = HaploOmniForConditionalGeneration.from_pretrained(
+    model_path,
+    torch_dtype=DTYPE
+)
+
+pipe_source_path = 'CogVideoX-2b'
+pipe = CogVideoXPipeline.from_pretrained(pipe_source_path, transformer=None, torch_dtype=DTYPE)
+pipe.transformer = model.to(DTYPE)
+pipe.scheduler = CogVideoXDDIMScheduler.from_config(pipe.scheduler.config, timestep_spacing="trailing")
+pipe.to(device)
+pipe.vae.to(torch.float16)
+
+prompt = ("A beautiful beach.")
+
+video_generate = pipe(
+    height=480,
+    width=720,
+    prompt=prompt,
+    num_videos_per_prompt=1,
+    num_inference_steps=50,
+    num_frames=9,   # 9 25
+    use_dynamic_cfg=False,
+    tokenizer_path=model_path,
+    use_omni_template=False,
+    use_qwen2vl_template=False,
+    use_vanilla_template=True,
+    negative_prompt=None,
+    guidance_scale=6.5,
+    generator=torch.Generator().manual_seed(42),
+).frames[0]
+
+export_to_video(video_generate, 'output_video.mp4', fps=8)
+```
 ## 🎤🎤🎤 Todo
 
 - [ &#10004; ] Release the paper.

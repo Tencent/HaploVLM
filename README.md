@@ -15,7 +15,7 @@ HaploVL is a multimodal understanding foundation model that delivers comprehensi
 
 ## Project Updates
 
-- 🔥 **News**: ```2025/08/08```: We release HaploOmni in the branch (HaploOmni).
+- 🔥 **News**: ```2025/08/08```: We release HaploOmni in the branch ([model](https://huggingface.co/EasonXiao-888/HaploOmni)).
 - 🔥 **News**: ```2025/05/01```: HaploVL is accepted by ICML2025.
 
 ## Highlights
